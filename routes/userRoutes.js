@@ -5,7 +5,7 @@ const {jwtAuthMiddleware, generateToken}= require('../jwt');
 
 
 
-//POST route to add person
+//1)***POST route to add person
 
 router.post('/signup',async(req,res)=>{
 try{
@@ -33,35 +33,41 @@ res.status(500).json({error:"Internal Server Error"});
 }
 })
 
-//Login Route
+// 2)***Login Route
 
-router.post('/login',async(req,res)=>{
+router.post('/login', async (req, res) => {
     try {
-        //Extract AdhaarCard Number and password from request body
-        const {adhaarCardNumber , password} = req.body;
+        const { adhaarCardNumber, password } = req.body;
 
-        //Find the user by adhaar
-        const user = await User.findOne({adhaarCardNumber:adhaarCardNumber});
+        const user = await User.findOne({ adhaarCardNumber });
 
-        //If user does not exist or password does not match, return error
-        if(!user || !(await user.comparePassword(password))){
-            return res.status(401).json({error:"Invalid username or password"});
-
+        if (!user || !(await user.comparePassword(password))) {
+            return res.status(401).json({
+                error: "Invalid username or password"
+            });
         }
 
         const payload = {
-            id:user.id
-        }
+            id: user.id
+        };
 
         const token = generateToken(payload);
 
-    } catch (error) {
-        console.log(err);
-        res.status(500).json({error:"Internal Server Error"});
-    }
-})
+        res.status(200).json({
+            token: token,
+            user: user
+        });
 
-// Profile Route
+    } catch (error) {
+        console.log(error);
+
+        res.status(500).json({
+            error: "Internal Server Error"
+        });
+    }
+});
+
+// 3)*** Profile Route
 
 router.get('/profile', jwtAuthMiddleware, async (req, res) => {
     try {

@@ -60,10 +60,11 @@ userSchema.pre('save', async function () {
 });
 
 
-userSchema.methods.comparepassword = async function(candidatePassword){
+userSchema.methods.comparePassword = async function(candidatePassword){
     try {
         //use bcrypt to compare provided with hashed pass
         const isMatch = await bcrypt.compare(candidatePassword, this.password);
+        
         return isMatch;
 
     } catch (error) {

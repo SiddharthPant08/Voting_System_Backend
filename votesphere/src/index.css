@@ -1,0 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-paper-100 text-ink-900 font-sans antialiased;
+}
+
+::selection {
+  background-color: #B8873A;
+  color: #FBFAF6;
+}
+
+/* Visible keyboard focus everywhere */
+:focus-visible {
+  outline: 2px solid #B8873A;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Thin, considered scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #B8C2D4;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Ballot-stub tick marks used as a recurring structural motif */
+.ballot-rule {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    theme('colors.ink.200') 0,
+    theme('colors.ink.200') 1px,
+    transparent 1px,
+    transparent 10px
+  );
+  background-size: 1px 100%;
+  background-repeat: no-repeat;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
