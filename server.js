@@ -20,10 +20,9 @@ app.use('/user',userRoutes);
 app.use('/candidate',candidateRoutes);
 
 
-app.listen(PORT, 'localhost', () => {
+app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server listening on PORT ${PORT}`);
 });
-
 
 // app.listen(PORT,()=>{
 //     console.log("Server listening on PORT 3000")
